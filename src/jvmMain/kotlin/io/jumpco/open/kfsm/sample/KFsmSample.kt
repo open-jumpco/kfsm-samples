@@ -1,6 +1,8 @@
-package io.jumpco.kfsm.sample
+package io.jumpco.open.kfsm.sample
 
-import io.jumpco.open.kfsm.sample.*
+import io.jumpco.open.kfsm.sample.Lock
+import io.jumpco.open.kfsm.sample.LockFSM
+
 class KFsmSample {
     companion object {
         @JvmStatic

@@ -81,7 +81,7 @@ tasks {
         manifest {
             attributes["Implementation-Title"] = "kfsm-fat-jar"
             attributes["Implementation-Version"] = version
-            attributes["Main-Class"] = "io.jumpco.kfsm.sample.KFsmSample"
+            attributes["Main-Class"] = "io.jumpco.open.kfsm.sample.KFsmSample"
         }
         from(configurations["jvmRuntimeClasspath"].map({ if (it.isDirectory) it else zipTree(it) }))
         with(jvmJar as CopySpec)
