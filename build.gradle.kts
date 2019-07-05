@@ -1,6 +1,7 @@
 import org.gradle.jvm.tasks.Jar
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.api.tasks.Exec
 
 plugins {
     base
@@ -85,6 +86,10 @@ tasks {
         }
         from(configurations["jvmRuntimeClasspath"].map({ if (it.isDirectory) it else zipTree(it) }))
         with(jvmJar as CopySpec)
+    }
+
+    register("nativeImage", Exec::class) {
+        commandLine = listOf("native-image", "-da", "--static", "-jar", "./build/libs/kfsm-samples-fat-${version}.jar", "$buildDir/native/kfsm-samples")
     }
 }
 

@@ -10,7 +10,7 @@ git clone https://github.com/open-jumpco/kfsm-samples.git
 ### Build Graal Native Image
 
 ```bash
-native-image -da --static -jar ./build/libs/kfsm-samples-fat-LOCAL-SNAPSHOT.jar kfsm-samples
+./gradlew nativeImage 
 ```
 
 ## Executing applications
@@ -19,11 +19,10 @@ native-image -da --static -jar ./build/libs/kfsm-samples-fat-LOCAL-SNAPSHOT.jar 
 ```cmd
 run.cmd
 ```
+
 ### *nix
 ```bash
 ./run.sh
-# Execute graal-native image
-./kfsm-samples
 ```
 
 
