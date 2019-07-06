@@ -23,22 +23,22 @@ kotlin {
     js { nodejs {} }
     // Create target for the host platform.
     val hostTarget = when {
-        OperatingSystem.current().isMacOsX() -> macosX64("native")
-        OperatingSystem.current().isLinux() -> linuxX64("native")
-        OperatingSystem.current().isWindows() -> mingwX64("native")
+        OperatingSystem.current().isMacOsX -> macosX64("native")
+        OperatingSystem.current().isLinux -> linuxX64("native")
+        OperatingSystem.current().isWindows -> mingwX64("native")
         else -> throw GradleException("Host OS '${OperatingSystem.current().name}' is not supported in Kotlin/Native $project.")
     }
     val depSuffix = when {
-        OperatingSystem.current().isMacOsX() -> "macosX64"
-        OperatingSystem.current().isLinux() -> "linuxX64"
-        OperatingSystem.current().isWindows() -> "mingwX64"
+        OperatingSystem.current().isMacOsX -> "macosX64"
+        OperatingSystem.current().isLinux -> "linuxX64"
+        OperatingSystem.current().isWindows -> "mingwX64"
         else -> throw GradleException("Host OS '${OperatingSystem.current().name}' is not supported in Kotlin/Native $project.")
     }
     project.logger.lifecycle("target:suffix:$depSuffix")
     hostTarget.apply {
         binaries {
             executable {
-                entryPoint = "io.jumpco.kfsm.sample.main"
+                entryPoint = "io.jumpco.open.kfsm.sample.main"
             }
         }
     }
@@ -84,12 +84,12 @@ tasks {
             attributes["Implementation-Version"] = version
             attributes["Main-Class"] = "io.jumpco.open.kfsm.sample.KFsmSample"
         }
-        from(configurations["jvmRuntimeClasspath"].map({ if (it.isDirectory) it else zipTree(it) }))
+        from(configurations["jvmRuntimeClasspath"].map { if (it.isDirectory) it else zipTree(it) })
         with(jvmJar as CopySpec)
     }
 
     register("nativeImage", Exec::class) {
-        commandLine = listOf("native-image", "-da", "--static", "-jar", "./build/libs/kfsm-samples-fat-${version}.jar", "$buildDir/native/kfsm-samples")
+        commandLine = listOf("native-image", "-da", "--static", "-jar", "./build/libs/kfsm-samples-fat-$version.jar", "$buildDir/native/kfsm-samples")
     }
 }
 
