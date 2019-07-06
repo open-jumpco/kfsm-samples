@@ -11,9 +11,15 @@ git clone https://github.com/open-jumpco/kfsm-samples.git
 
 ### Build Graal Native Image
 
+This was tested by building normal build with JDK 8 and 11 and then using Graal 19.1.0 to build the native image.
+
+
+
 ```bash
 ./gradlew nativeImage 
 ```
+
+_I prefer using [sdkman](https://sdkman.io/) to switch runtimes while doing this kind of exercise._
 
 ## Executing applications
 
