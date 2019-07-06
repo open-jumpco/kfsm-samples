@@ -10,12 +10,16 @@ plugins {
 
 repositories {
     mavenLocal()
+    maven {
+        url = uri("https://oss.sonatype.org/content/groups/public")
+    }
     jcenter()
     mavenCentral()
 }
 
 version = "LOCAL-SNAPSHOT"
 
+val kfsmVersion: String by project
 
 kotlin {
     project.logger.lifecycle("target:${OperatingSystem.current()}")
@@ -46,25 +50,25 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("io.jumpco.open:kfsm-common:0.1.0-SNAPSHOT")
+                implementation("io.jumpco.open:kfsm-common:$kfsmVersion")
             }
         }
         val nativeMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
-                implementation("io.jumpco.open:kfsm-$depSuffix:0.1.0-SNAPSHOT")
+                implementation("io.jumpco.open:kfsm-$depSuffix:$kfsmVersion")
             }
         }
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
-                implementation("io.jumpco.open:kfsm-jvm:0.1.0-SNAPSHOT")
+                implementation("io.jumpco.open:kfsm-jvm:$kfsmVersion")
             }
         }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation("io.jumpco.open:kfsm-js:0.1.0-SNAPSHOT")
+                implementation("io.jumpco.open:kfsm-js:$kfsmVersion")
             }
         }
     }
