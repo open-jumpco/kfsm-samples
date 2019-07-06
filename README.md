@@ -1,5 +1,7 @@
 # kfsm samples
 
+This project contains samples for using [kfsm](https://github.com/open-jumpco/kfsm)
+
 ## Build
 
 ```bash
