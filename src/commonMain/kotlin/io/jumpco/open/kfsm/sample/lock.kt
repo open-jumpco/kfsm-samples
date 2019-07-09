@@ -66,21 +66,21 @@ class LockFSM(private val context: Lock) {
                 }
             }
             state(LockStates.LOCKED) {
-                event(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) { context ->
+                on(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) { context ->
                     context.doubleLock()
                 }
-                event(LockEvents.UNLOCK to LockStates.UNLOCKED) { context ->
+                on(LockEvents.UNLOCK to LockStates.UNLOCKED) { context ->
                     context.unlock()
                 }
             }
             state(LockStates.DOUBLE_LOCKED) {
-                event(LockEvents.UNLOCK to LockStates.LOCKED) { context ->
+                on(LockEvents.UNLOCK to LockStates.LOCKED) { context ->
                     context.doubleUnlock()
                 }
-                event(LockEvents.LOCK) { lock -> lock.alarm() }
+                on(LockEvents.LOCK) { lock -> lock.alarm() }
             }
             state(LockStates.UNLOCKED) {
-                event(LockEvents.LOCK to LockStates.LOCKED) { context ->
+                on(LockEvents.LOCK to LockStates.LOCKED) { context ->
                     context.lock()
                 }
             }
@@ -91,6 +91,6 @@ class LockFSM(private val context: Lock) {
 
     private val fsm = definition.create(context)
 
-    fun unlock() = fsm.event(LockEvents.UNLOCK)
-    fun lock() = fsm.event(LockEvents.LOCK)
+    fun unlock() = fsm.sendEvent(LockEvents.UNLOCK)
+    fun lock() = fsm.sendEvent(LockEvents.LOCK)
 }
