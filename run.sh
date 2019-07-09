@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 echo "Node Version"
 node --version
-node build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js
+/usr/bin/time -v node build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js
 echo "JVM Version"
 java -version
-java -jar ./build/libs/kfsm-samples-fat-LOCAL-SNAPSHOT.jar
+/usr/bin/time -v java -jar ./build/libs/kfsm-samples-fat-LOCAL-SNAPSHOT.jar
 echo "Native Release Version"
-./build/bin/native/releaseExecutable/kfsm-samples.kexe
+/usr/bin/time -v ./build/bin/native/releaseExecutable/kfsm-samples.kexe
 echo "Native Debug Version"
-./build/bin/native/debugExecutable/kfsm-samples.kexe
+/usr/bin/time -v ./build/bin/native/debugExecutable/kfsm-samples.kexe
 if [[ -f ./build/native/kfsm-samples ]]
 then
     echo "Graal Native Image Version"
-    ./build/native/kfsm-samples
+    /usr/bin/time -v ./build/native/kfsm-samples
 fi

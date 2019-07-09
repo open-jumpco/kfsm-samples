@@ -1,9 +1,5 @@
 package io.jumpco.open.kfsm.sample
 
-import io.jumpco.open.kfsm.sample.Lock
-import io.jumpco.open.kfsm.sample.LockFSM
-
-
 fun main() {
     println("Starting...")
     val lock = Lock()

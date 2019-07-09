@@ -93,7 +93,10 @@ tasks {
     }
 
     register("nativeImage", Exec::class) {
-        commandLine = listOf("native-image", "-da", "--static", "-jar", "./build/libs/kfsm-samples-fat-$version.jar", "$buildDir/native/kfsm-samples")
+        val cmdLine = listOf("native-image", "-da", " --no-fallback", "--static", "-jar", "./build/libs/kfsm-samples-fat-$version.jar", "$buildDir/native/kfsm-samples")
+        val output = cmdLine.joinToString(" ")
+        logger.lifecycle("cmd:$output")
+        commandLine = cmdLine
     }
 }
 
