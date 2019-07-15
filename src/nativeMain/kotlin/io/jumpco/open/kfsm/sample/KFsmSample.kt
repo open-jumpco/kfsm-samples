@@ -1,7 +1,10 @@
 package io.jumpco.open.kfsm.sample
 
 fun main() {
-    println("Starting...")
+    val version = "${KotlinVersion.CURRENT.major}.${KotlinVersion.CURRENT.minor}.${KotlinVersion.CURRENT.patch}"
+    val os = kotlin.native.Platform.osFamily
+    val arch = kotlin.native.Platform.cpuArchitecture
+    println("Starting...Kotlin/Native:$version in $os on $arch")
     val lock = Lock()
     val fsm = LockFSM(lock)
     val startTime = kotlin.system.getTimeMillis()

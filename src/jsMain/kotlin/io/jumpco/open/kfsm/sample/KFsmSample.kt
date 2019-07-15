@@ -1,7 +1,8 @@
 package io.jumpco.open.kfsm.sample
 
 fun main() {
-    println("Starting...")
+    val version = kotlin.js.js("process.version")
+    println("Starting...$version")
     val lock = Lock()
     val fsm = LockFSM(lock)
     val startTime = kotlin.js.Date().getTime()

@@ -4,7 +4,8 @@ class KFsmSample {
     companion object {
         @JvmStatic
         fun main(args:Array<String>) {
-            println("Starting...")
+            val version = System.getProperty("java.version")
+            println("Starting...${version}")
             val lock = Lock()
             val fsm = LockFSM(lock)
             val startTime = System.currentTimeMillis()
@@ -19,6 +20,7 @@ class KFsmSample {
             val totalTime = System.currentTimeMillis() - startTime
             val rate = iterations / totalTime
             println("Total iteration $iterations in ${totalTime}ms $rate iterations/ms")
+            println()
         }
     }
 }
