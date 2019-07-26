@@ -1,7 +1,6 @@
-import org.gradle.jvm.tasks.Jar
 import org.gradle.internal.os.OperatingSystem
+import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.gradle.api.tasks.Exec
 
 plugins {
     base
@@ -25,6 +24,14 @@ kotlin {
     project.logger.lifecycle("target:${OperatingSystem.current()}")
     jvm()
     js { nodejs {} }
+    wasm32("wasm") {
+        binaries {
+            executable {
+                entryPoint = "io.jumpco.open.kfsm.sample.main"
+            }
+        }
+    }
+
     // Create target for the host platform.
     val hostTarget = when {
         OperatingSystem.current().isMacOsX -> macosX64("native")
@@ -39,6 +46,7 @@ kotlin {
         else -> throw GradleException("Host OS '${OperatingSystem.current().name}' is not supported in Kotlin/Native $project.")
     }
     project.logger.lifecycle("target:suffix:$depSuffix")
+
     hostTarget.apply {
         binaries {
             executable {
@@ -71,6 +79,12 @@ kotlin {
                 implementation("io.jumpco.open:kfsm-js:$kfsmVersion")
             }
         }
+        val wasmMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib"))
+                implementation("io.jumpco.open:kfsm-wasm32:$kfsmVersion")
+            }
+        }
     }
 }
 
@@ -93,7 +107,15 @@ tasks {
     }
 
     register("nativeImage", Exec::class) {
-        val cmdLine = listOf("native-image", "-da", " --no-fallback", "--static", "-jar", "./build/libs/kfsm-samples-fat-$version.jar", "$buildDir/native/kfsm-samples")
+        val cmdLine = listOf(
+            "native-image",
+            "-da",
+            " --no-fallback",
+            "--static",
+            "-jar",
+            "./build/libs/kfsm-samples-fat-$version.jar",
+            "$buildDir/native/kfsm-samples"
+        )
         val output = cmdLine.joinToString(" ")
         logger.lifecycle("cmd:$output")
         commandLine = cmdLine
