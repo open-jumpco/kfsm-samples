@@ -1,5 +1,6 @@
 package io.jumpco.open.kfsm.sample
 
+
 fun main() {
     val version = "${KotlinVersion.CURRENT.major}.${KotlinVersion.CURRENT.minor}.${KotlinVersion.CURRENT.patch}"
     val os = kotlin.native.Platform.osFamily
