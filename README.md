@@ -11,7 +11,7 @@ git clone https://github.com/open-jumpco/kfsm-samples.git
 
 ### Build Graal Native Image
 
-This was tested by building normal build with JDK 8 and 11 and then using Graal 19.1.0 to build the native image.
+This was tested by building normal build with JDK 8 and 11 and then using Graal 19.1.1 to build the native image.
 
 
 

@@ -68,23 +68,23 @@ class LockFSM(context: Lock) {
                 }
             }
             state(LockStates.LOCKED) {
-                on(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) {
+                transition(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) {
                     doubleLock()
                 }
-                on(LockEvents.UNLOCK to LockStates.UNLOCKED) {
+                transition(LockEvents.UNLOCK to LockStates.UNLOCKED) {
                     unlock()
                 }
             }
             state(LockStates.DOUBLE_LOCKED) {
-                on(LockEvents.UNLOCK to LockStates.LOCKED) {
+                transition(LockEvents.UNLOCK to LockStates.LOCKED) {
                     doubleUnlock()
                 }
-                on(LockEvents.LOCK) {
+                transition(LockEvents.LOCK) {
                     alarm()
                 }
             }
             state(LockStates.UNLOCKED) {
-                on(LockEvents.LOCK to LockStates.LOCKED) {
+                transition(LockEvents.LOCK to LockStates.LOCKED) {
                     lock()
                 }
             }

@@ -24,6 +24,7 @@ kotlin {
     project.logger.lifecycle("target:${OperatingSystem.current()}")
     jvm()
     js { nodejs {} }
+    /* on ice for now.
     wasm32("wasm") {
         binaries {
             executable {
@@ -31,6 +32,7 @@ kotlin {
             }
         }
     }
+     */
 
     // Create target for the host platform.
     val hostTarget = when {
@@ -79,12 +81,14 @@ kotlin {
                 implementation("io.jumpco.open:kfsm-js:$kfsmVersion")
             }
         }
+        /*
         val wasmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
                 implementation("io.jumpco.open:kfsm-wasm32:$kfsmVersion")
             }
         }
+         */
     }
 }
 
@@ -96,34 +100,53 @@ val jvmJar = tasks["jvmJar"]
 tasks {
 
     val fatJar = register("fatJar", Jar::class) {
-        baseName = "${project.name}-fat"
+        archiveBaseName.set("${project.name}-fat")
         manifest {
             attributes["Implementation-Title"] = "kfsm-fat-jar"
-            attributes["Implementation-Version"] = version
+            attributes["Implementation-Version"] = archiveVersion
             attributes["Main-Class"] = "io.jumpco.open.kfsm.sample.KFsmSample"
         }
-        from(configurations["jvmRuntimeClasspath"].map { if (it.isDirectory) it else zipTree(it) })
+        from(configurations["jvmRuntimeClasspath"].map {
+            if (it.isDirectory)
+                it
+            else
+                zipTree(it)
+        })
         with(jvmJar as CopySpec)
     }
 
     register("nativeImage", Exec::class) {
+        logging.captureStandardOutput(LogLevel.INFO)
+        logging.captureStandardError(LogLevel.ERROR)
+        val inputFile = "${project.projectDir}/build/libs/kfsm-samples-fat-$version.jar"
+        val outputFile = "${project.projectDir}/build/native/kfsm-samples"
         val cmdLine = listOf(
-            "native-image",
-            "-da",
+            "-ea", // -da
+            "-H:+ReportExceptionStackTraces",
             " --no-fallback",
             "--static",
+            "-O1",
+            "--verbose",
             "-jar",
-            "./build/libs/kfsm-samples-fat-$version.jar",
-            "$buildDir/native/kfsm-samples"
+            inputFile,
+            outputFile
         )
-        val output = cmdLine.joinToString(" ")
-        logger.lifecycle("cmd:$output")
-        commandLine = cmdLine
+        val nativeImage = "native-image"
+        val output = nativeImage + " " + cmdLine.joinToString(" ")
+        doFirst {
+            logger.lifecycle("cmd: $output")
+            mkdir("./build/native")
+        }
+        executable = nativeImage
+        setArgs(cmdLine)
+        inputs.file(inputFile)
+        outputs.file(outputFile)
     }
 }
 
 afterEvaluate {
     val fatJar = tasks["fatJar"]
     tasks["assemble"].dependsOn(fatJar)
+    tasks["nativeImage"].dependsOn(fatJar)
     fatJar.dependsOn(tasks["jvmMainClasses"])
 }
