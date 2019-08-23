@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     base
-    kotlin("multiplatform") version "1.3.41"
+    kotlin("multiplatform") version "1.3.50"
 }
 
 repositories {
