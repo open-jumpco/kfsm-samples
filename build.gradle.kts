@@ -104,7 +104,7 @@ tasks {
         manifest {
             attributes["Implementation-Title"] = "kfsm-fat-jar"
             attributes["Implementation-Version"] = archiveVersion
-            attributes["Main-Class"] = "io.jumpco.open.kfsm.sample.KFsmSample"
+            attributes["Main-Class"] = "io.jumpco.open.kfsm.sample.KFsmSampleKt"
         }
         from(configurations["jvmRuntimeClasspath"].map {
             if (it.isDirectory)
@@ -123,7 +123,7 @@ tasks {
         val cmdLine = listOf(
             "-ea", // -da
             "-H:+ReportExceptionStackTraces",
-            " --no-fallback",
+            "--no-fallback",
             "--static",
             "-O1",
             "--verbose",

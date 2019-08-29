@@ -1,7 +1,8 @@
 package io.jumpco.open.kfsm.sample
 
 
-fun main() {
+fun main(args: Array<String>) {
+    val timeout = if(args.isNotEmpty()) args[0].toLong() else 5000
     val version = "${KotlinVersion.CURRENT.major}.${KotlinVersion.CURRENT.minor}.${KotlinVersion.CURRENT.patch}"
     val os = kotlin.native.Platform.osFamily
     val arch = kotlin.native.Platform.cpuArchitecture
@@ -10,7 +11,7 @@ fun main() {
     val fsm = LockFSM(lock)
     val startTime = kotlin.system.getTimeMillis()
     var iterations = 0
-    while (kotlin.system.getTimeMillis() - startTime < 10000) {
+    while (kotlin.system.getTimeMillis() - startTime < timeout) {
         for (i in 0..100) {
             fsm.unlock()
             fsm.lock()
