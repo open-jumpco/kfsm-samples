@@ -58,8 +58,12 @@ enum class LockEvents {
 
 class LockFSM(context: Lock) {
     companion object {
-        private val definition = stateMachine(LockStates.values().toSet(), LockEvents::class, Lock::class) {
-            initial {
+        private val definition = stateMachine(
+            LockStates.values().toSet(),
+            LockEvents.values().toSet(),
+            Lock::class
+        ) {
+            initialState {
                 when (locked) {
                     0 -> LockStates.UNLOCKED
                     1 -> LockStates.LOCKED
@@ -67,24 +71,24 @@ class LockFSM(context: Lock) {
                     else -> error("Invalid state locked=$locked")
                 }
             }
-            state(LockStates.LOCKED) {
-                transition(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) {
+            whenState(LockStates.LOCKED) {
+                onEvent(LockEvents.LOCK to LockStates.DOUBLE_LOCKED) {
                     doubleLock()
                 }
-                transition(LockEvents.UNLOCK to LockStates.UNLOCKED) {
+                onEvent(LockEvents.UNLOCK to LockStates.UNLOCKED) {
                     unlock()
                 }
             }
-            state(LockStates.DOUBLE_LOCKED) {
-                transition(LockEvents.UNLOCK to LockStates.LOCKED) {
+            whenState(LockStates.DOUBLE_LOCKED) {
+                onEvent(LockEvents.UNLOCK to LockStates.LOCKED) {
                     doubleUnlock()
                 }
-                transition(LockEvents.LOCK) {
+                onEvent(LockEvents.LOCK) {
                     alarm()
                 }
             }
-            state(LockStates.UNLOCKED) {
-                transition(LockEvents.LOCK to LockStates.LOCKED) {
+            whenState(LockStates.UNLOCKED) {
+                onEvent(LockEvents.LOCK to LockStates.LOCKED) {
                     lock()
                 }
             }
