@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 echo "Node Version" | tee perf.log
 node --version | tee -a perf.log
-/usr/bin/time --output=node-perf.log -v node --max-old-space-size=12 build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
+# /usr/bin/time --output=node-perf.log -v node --max-old-space-size=15 build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
+/usr/bin/time --output=node-perf.log -v node build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
 echo "Native Release Version" | tee -a perf.log
 /usr/bin/time --output=native-release-perf.log -v ./build/bin/native/releaseExecutable/kfsm-samples.kexe $* | tee -a perf.log
 echo "Native Debug Version" | tee -a perf.log

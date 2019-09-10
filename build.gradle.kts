@@ -9,9 +9,6 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri("https://oss.sonatype.org/content/groups/public")
-    }
     jcenter()
     mavenCentral()
 }
