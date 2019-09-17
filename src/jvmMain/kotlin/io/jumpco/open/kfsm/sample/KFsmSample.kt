@@ -7,16 +7,16 @@ fun main(args: Array<String>) {
     val lock = Lock()
     val fsm = LockFSM(lock)
     val startTime = System.currentTimeMillis()
-    var iterations = 0
+    var transisions = 0
     while (System.currentTimeMillis() - startTime < timeout) {
         for (i in 0..100) {
             fsm.unlock()
             fsm.lock()
-            iterations += 1
         }
+        transisions += 200
     }
     val totalTime = System.currentTimeMillis() - startTime
-    val rate = iterations / totalTime
-    println("Total iteration $iterations in ${totalTime}ms $rate iterations/ms")
+    val rate = transisions / totalTime
+    println("Total transisions $transisions in ${totalTime}ms $rate transisions/ms")
     println()
 }
