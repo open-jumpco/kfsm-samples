@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     base
-    kotlin("multiplatform") version "1.3.50"
+    kotlin("multiplatform") version "1.3.61"
 }
 
 repositories {
@@ -20,7 +20,7 @@ val kfsmVersion: String by project
 kotlin {
     project.logger.lifecycle("target:${OperatingSystem.current()}")
     jvm()
-    js { nodejs {} }
+    js {  nodejs {} }
     /* on ice for now.
     wasm32("wasm") {
         binaries {

@@ -15,7 +15,12 @@ This was tested by building normal build with JDK 8 and 11 and then using Graal 
 
 
 
+
+
 ```bash
+# Install GraalVM native-image compiler
+gu install native-image
+# Create the native image
 ./gradlew nativeImage 
 ```
 

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-source ~/.nvm/nvm.sh
+# source ~/.nvm/nvm.sh
 echo "Node Version" | tee perf.log
-
-# /usr/bin/time --output=node-perf.log -v node --max-old-space-size=15 build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
-NODE_VER=10.16.3
-echo "Node $NODE_VER" | tee perf.log
-/usr/bin/time --output=node-perf-$NODE_VER.log -v nvm run $NODE_VER build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
-NODE_VER=12.10.0
-echo "Node 12.10.0" | tee perf.log
-/usr/bin/time --output=node-perf-$NODE_VER.log -v nvm run $NODE_VER build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
+node --version| tee perf.log
+/usr/bin/time --output=node-perf.log -v node --max-old-space-size=15 build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
+# NODE_VER=10.16.3
+# echo "Node $NODE_VER" | tee perf.log
+# /usr/bin/time --output=node-perf-$NODE_VER.log -v nvm run $NODE_VER build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
+# NODE_VER=12.10.0
+# echo "Node 12.10.0" | tee perf.log
+# /usr/bin/time --output=node-perf-$NODE_VER.log -v nvm run $NODE_VER build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log
 echo "Native Release Version" | tee -a perf.log
 /usr/bin/time --output=native-release-perf.log -v ./build/bin/native/releaseExecutable/kfsm-samples.kexe $* | tee -a perf.log
 echo "Native Debug Version" | tee -a perf.log
