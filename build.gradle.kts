@@ -72,6 +72,12 @@ kotlin {
                 implementation("io.jumpco.open:kfsm-jvm:$kfsmVersion")
             }
         }
+        val jvmTest by getting {
+            dependencies {
+                implementation("junit:junit:4.13")
+                implementation("io.jumpco.open:kfsm-viz:0.9.0-SNAPSHOT")
+            }
+        }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))

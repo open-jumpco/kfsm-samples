@@ -38,4 +38,32 @@ run.cmd
 ./run.sh
 ```
 
+## Generate State Diagram
 
+![lock-fsm](lock.png "Lock FSM")
+
+We parse the source in order obtain the content of the lambdas that represent actions and guard expressions.
+
+The code to generate the FSM below:
+
+```kotlin
+class VisualizeFSM {
+    @Before
+    fun setup() {
+        val generated = File("generated")
+        if (generated.exists() && !generated.isDirectory) {
+            error("Expected generated to be a directory")
+        } else if (!generated.exists()) {
+            generated.mkdirs()
+        }
+    }
+
+    @Test
+    fun visualizeLock() {
+        val visualisation = parseStateMachine("LockFSM",
+            File("src/commonMain/kotlin/io/jumpco/open/kfsm/sample/lock.kt"))
+        File("generated", "lock.plantuml").writeText(plantUml(visualisation))
+        File("generated", "lock.adoc").writeText(asciiDoc(visualisation))
+    }
+}
+```
