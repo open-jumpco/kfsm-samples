@@ -1,0 +1,33 @@
+== LockFSM State Chart
+
+=== LockFSM State Map
+
+|===
+| Start | Event[Guard] | Target | Action
+
+| LOCKED
+| LOCK
+| DOUBLE_LOCKED
+|  `{doubleLock()}`
+
+| LOCKED
+| UNLOCK
+| UNLOCKED
+|  `{unlock()}`
+
+| DOUBLE_LOCKED
+| UNLOCK
+| LOCKED
+|  `{doubleUnlock()}`
+
+| DOUBLE_LOCKED
+| LOCK
+| DOUBLE_LOCKED
+|  `{alarm()}`
+
+| UNLOCKED
+| LOCK
+| LOCKED
+|  `{lock()}`
+|===
+

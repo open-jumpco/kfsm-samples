@@ -1,0 +1,11 @@
+@startuml
+skinparam StateFontName Helvetica
+skinparam defaultFontName Monospaced
+state LockFSM {
+LOCKED --> DOUBLE_LOCKED : LOCK\l<<action>> {\ldoubleLock()\l}
+LOCKED --> UNLOCKED : UNLOCK\l<<action>> {\lunlock()\l}
+DOUBLE_LOCKED --> LOCKED : UNLOCK\l<<action>> {\ldoubleUnlock()\l}
+DOUBLE_LOCKED --> DOUBLE_LOCKED : LOCK\l<<action>> {\lalarm()\l}
+UNLOCKED --> LOCKED : LOCK\l<<action>> {\llock()\l}
+}
+@enduml
