@@ -1,8 +1,8 @@
 package io.jumpco.open.kfsm.sample
 
 import io.jumpco.open.kfsm.viz.Parser.parseStateMachine
-import io.jumpco.open.kfsm.viz.Visualization.asciiDoc
 import io.jumpco.open.kfsm.viz.Visualization.plantUml
+import io.jumpco.open.kfsm.viz.Visualization.asciiDoc
 import org.junit.Before
 import org.junit.Test
 import java.io.File
@@ -17,7 +17,6 @@ class VisualizeFSM {
             generated.mkdirs()
         }
     }
-
     @Test
     fun visualizeLock() {
         val visualisation = parseStateMachine(

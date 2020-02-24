@@ -58,7 +58,7 @@ enum class LockEvents {
 
 class LockFSM(context: Lock) {
     companion object {
-        private val definition = stateMachine(
+        val definition = stateMachine(
             LockStates.values().toSet(),
             LockEvents.values().toSet(),
             Lock::class

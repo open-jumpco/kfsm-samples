@@ -1,11 +1,27 @@
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import io.jumpco.open.kfsm.gradle.VizPluginExtension
 
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("io.jumpco.kfsm.open:kfsm-viz-plugin:1.0.3")
+    }
+}
 plugins {
     base
     kotlin("multiplatform") version "1.3.61"
+    // id("io.jumpco.open.kfsm.viz-plugin") version "1.0.3"
 }
+
+apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
 
 repositories {
     mavenLocal()
@@ -150,6 +166,18 @@ tasks {
 afterEvaluate {
     val fatJar = tasks["fatJar"]
     tasks["assemble"].dependsOn(fatJar)
+    tasks["assemble"].dependsOn(tasks["generateFsmViz"])
     tasks["nativeImage"].dependsOn(fatJar)
     fatJar.dependsOn(tasks["jvmMainClasses"])
+}
+
+
+configure<VizPluginExtension> {
+    fsm("LockFSM") {
+        outputFolder = file("generated")
+        input = file("src/commonMain/kotlin/io/jumpco/open/kfsm/sample/lock.kt")
+        isGeneratePlantUml = true // Required default is false
+        isGenerateAsciidoc = true // Required default is false
+        output = "lock-gen"
+    }
 }
