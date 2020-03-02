@@ -3,22 +3,10 @@ import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.jumpco.open.kfsm.gradle.VizPluginExtension
 
-buildscript {
-    repositories {
-        mavenLocal()
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
-        mavenCentral()
-    }
-    dependencies {
-        classpath("io.jumpco.kfsm.open:kfsm-viz-plugin:1.0.3")
-    }
-}
 plugins {
     base
     kotlin("multiplatform") version "1.3.61"
-    // id("io.jumpco.open.kfsm.viz-plugin") version "1.0.3"
+    id("io.jumpco.open.kfsm.viz-plugin") version "1.0.7"
 }
 
 apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
