@@ -49,27 +49,52 @@ run.cmd
 | LOCKED
 | LOCK
 | DOUBLE_LOCKED
-|  `{doubleLock()}`
+a| [source,kotlin]
+----
+{
+doubleLock()
+}
+----
 
 | LOCKED
 | UNLOCK
 | UNLOCKED
-|  `{unlock()}`
+a| [source,kotlin]
+----
+{
+unlock()
+}
+----
 
 | DOUBLE_LOCKED
 | UNLOCK
 | LOCKED
-|  `{doubleUnlock()}`
+a| [source,kotlin]
+----
+{
+doubleUnlock()
+}
+----
 
 | DOUBLE_LOCKED
 | LOCK
 | DOUBLE_LOCKED
-|  `{alarm()}`
+a| [source,kotlin]
+----
+{
+alarm()
+}
+----
 
 | UNLOCKED
 | LOCK
 | LOCKED
-|  `{lock()}`
+a| [source,kotlin]
+----
+{
+lock()
+}
+----
 |===
 
 == Generated State Diagram
