@@ -5,15 +5,14 @@ import io.jumpco.open.kfsm.gradle.VizPluginExtension
 
 plugins {
     base
-    kotlin("multiplatform") version "1.3.61"
-    id("io.jumpco.open.kfsm.viz-plugin") version "1.0.9"
+    kotlin("multiplatform") version "1.4.31"
+    id("io.jumpco.open.kfsm.viz-plugin") version "1.4.0"
 }
 
 apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
 
 repositories {
     mavenLocal()
-    jcenter()
     mavenCentral()
 }
 
