@@ -5,8 +5,8 @@ import io.jumpco.open.kfsm.gradle.VizPluginExtension
 
 plugins {
     base
-    kotlin("multiplatform") version "1.4.31"
-    id("io.jumpco.open.kfsm.viz-plugin") version "1.4.0"
+    kotlin("multiplatform") version "1.4.32"
+    id("io.jumpco.open.kfsm.viz-plugin") version "1.4.32.1"
 }
 
 apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
@@ -60,7 +60,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("io.jumpco.open:kfsm-common:$kfsmVersion")
+                implementation("io.jumpco.open:kfsm:$kfsmVersion")
             }
         }
         val nativeMain by getting {
@@ -78,13 +78,14 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation("junit:junit:4.13")
-                implementation("io.jumpco.open:kfsm-viz:1.0.6")
+                implementation("io.jumpco.open:kfsm-viz:1.4.32.4")
             }
         }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation("io.jumpco.open:kfsm-js:$kfsmVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.4.3")
             }
         }
         /*
