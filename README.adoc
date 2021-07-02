@@ -1,5 +1,8 @@
 = KFSM samples
 
+image::https://i.creativecommons.org/l/by-sa/4.0/88x31.png[link=http://creativecommons.org/licenses/by-sa/4.0/]
+This work is licensed under a link:http://creativecommons.org/licenses/by-sa/4.0/[Creative Commons Attribution-ShareAlike 4.0 International License].
+
 This project contains samples for using link:https://github.com/open-jumpco/kfsm[KFSM]
 
 == Build
