@@ -16,7 +16,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("io.jumpco.open:kfsm-viz-plugin:1.5.2.3")
+        classpath("io.jumpco.open:kfsm-viz-plugin:1.5.2.4")
     }
 }
 
