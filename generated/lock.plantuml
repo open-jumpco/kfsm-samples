@@ -1,14 +1,16 @@
 @startuml
+skinparam monochrome true
 skinparam StateFontName Helvetica
 skinparam defaultFontName Monospaced
+skinparam defaultFontStyle Bold
 skinparam state {
-    BackgroundColor LightBlue
+    FontStyle Bold
 }
 state LockFSM {
-LOCKED --> DOUBLE_LOCKED : LOCK\l<<action>> {\ldoubleLock()\l}
-LOCKED --> UNLOCKED : UNLOCK\l<<action>> {\lunlock()\l}
-DOUBLE_LOCKED --> LOCKED : UNLOCK\l<<action>> {\ldoubleUnlock()\l}
-DOUBLE_LOCKED --> DOUBLE_LOCKED : LOCK\l<<action>> {\lalarm()\l}
-UNLOCKED --> LOCKED : LOCK\l<<action>> {\llock()\l}
+LOCKED --> DOUBLE_LOCKED : LOCK -> {\l  doubleLock()\l}
+LOCKED --> UNLOCKED : UNLOCK -> {\l  unlock()\l}
+DOUBLE_LOCKED --> LOCKED : UNLOCK -> {\l  doubleUnlock()\l}
+DOUBLE_LOCKED --> DOUBLE_LOCKED : LOCK -> {\l  alarm()\l}
+UNLOCKED --> LOCKED : LOCK -> {\l  lock()\l}
 }
 @enduml

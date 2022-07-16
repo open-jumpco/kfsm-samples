@@ -2,16 +2,13 @@ import org.gradle.internal.os.OperatingSystem
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.jumpco.open.kfsm.gradle.VizPluginExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 buildscript {
     repositories {
         mavenLocal()
         maven {
-            url = uri("https://plugins.gradle.org/m2/")
-            metadataSources {
-                mavenPom()
-                artifact()
-            }
+            url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/temporary")
         }
         mavenCentral()
     }
@@ -22,12 +19,15 @@ buildscript {
 
 plugins {
     base
-    kotlin("multiplatform") version "1.5.10"
+    kotlin("multiplatform") version "1.6.21"
 }
 apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
 
 repositories {
     mavenLocal()
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/temporary")
+    }
     mavenCentral()
 }
 
@@ -93,14 +93,14 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation("junit:junit:4.13")
-                implementation("io.jumpco.open:kfsm-viz:1.5.0")
+                implementation("io.jumpco.open:kfsm-viz:1.5.2.4")
             }
         }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation("io.jumpco.open:kfsm-js:$kfsmVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.1")
             }
         }
         /*
@@ -112,10 +112,14 @@ kotlin {
         }
          */
     }
+    targets.withType(KotlinNativeTarget::class.java) {
+    }
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
 }
 val jvmJar = tasks["jvmJar"]
 

@@ -1,8 +1,8 @@
 package io.jumpco.open.kfsm.sample
 
 import io.jumpco.open.kfsm.viz.Parser.parseStateMachine
-import io.jumpco.open.kfsm.viz.Visualization.plantUml
 import io.jumpco.open.kfsm.viz.Visualization.asciiDoc
+import io.jumpco.open.kfsm.viz.Visualization.plantUml
 import org.junit.Before
 import org.junit.Test
 import java.io.File
@@ -19,11 +19,11 @@ class VisualizeFSM {
     }
     @Test
     fun visualizeLock() {
-        val visualisation = parseStateMachine(
+        val visualisation = io.jumpco.open.kfsm.viz.Parser.parseStateMachine(
             "LockFSM",
             File("src/commonMain/kotlin/io/jumpco/open/kfsm/sample/lock.kt")
         )
-        File("generated", "lock.plantuml").writeText(plantUml(visualisation))
-        File("generated", "lock.adoc").writeText(asciiDoc(visualisation))
+        File("generated", "lock.plantuml").writeText(io.jumpco.open.kfsm.viz.Visualization.plantUml(visualisation))
+        File("generated", "lock.adoc").writeText(io.jumpco.open.kfsm.viz.Visualization.asciiDoc(visualisation))
     }
 }

@@ -102,7 +102,7 @@ lock()
 
 == Generated State Diagram
 
-image:lock.png[]
+image:lock.svg[]
 
 To learn more about visualization visit link:https://github.com/open-jumpco/kfsm-viz[kfsm-viz] and
 link:https://github.com/open-jumpco/kfsm-viz-plugin[kfsm-viz-plugin]
