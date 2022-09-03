@@ -19,7 +19,7 @@ buildscript {
 
 plugins {
     base
-    kotlin("multiplatform") version "1.6.21"
+    kotlin("multiplatform") version "1.6.10"
 }
 apply(plugin = "io.jumpco.open.kfsm.viz-plugin")
 
