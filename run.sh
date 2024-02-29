@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source ~/.nvm/nvm.sh
-nvm use v16.16.0
+nvm use v18.16.1
 echo "Node Version" | tee perf.log
 node --version| tee perf.log
 /usr/bin/time --output=node-perf.log -v node --max-old-space-size=15 build/js/node_modules/kfsm-samples/kotlin/kfsm-samples.js $* | tee -a perf.log

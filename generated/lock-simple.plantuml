@@ -1,9 +1,0 @@
-@startuml
-state default {
-  LOCKED --> DOUBLE_LOCKED : LOCK
-  LOCKED --> UNLOCKED : UNLOCK
-  DOUBLE_LOCKED --> LOCKED : UNLOCK
-  DOUBLE_LOCKED --> DOUBLE_LOCKED : LOCK
-  UNLOCKED --> LOCKED : LOCK
-}
-@enduml
